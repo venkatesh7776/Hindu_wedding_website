@@ -10,12 +10,17 @@ const delay = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
 
 /**
  * Two treatments share the same content:
- * - with painted artwork: a light, daylight scene with bold burgundy type set straight on the open sky
+ * - with painted artwork: a light, daylight scene with bold burgundy type set straight on the open sky.
+ *   On portrait screens the art comes in two layers — the garlanded sky is there from the start and
+ *   the gopuram rises from the bottom once the intro cover lifts.
  * - without: maroon dusk with the line-art gopuram rising beneath the names
  */
 export function Hero() {
   const photoDesktop = generated("hero-gopuram-desktop");
   const photoMobile = generated("hero-gopuram-mobile");
+  const skyMobile = generated("hero-sky-mobile");
+  const templeMobile = generated("hero-temple-mobile");
+  const layered = Boolean(skyMobile && templeMobile);
   const photo = Boolean(photoDesktop);
 
   return (
@@ -28,10 +33,21 @@ export function Hero() {
           <>
             <div className="hero-photo-in absolute inset-0">
               <picture className="block h-full w-full">
-                {photoMobile && <source media="(orientation: portrait)" srcSet={photoMobile} />}
+                {layered ? (
+                  <source media="(orientation: portrait)" srcSet={skyMobile} />
+                ) : (
+                  photoMobile && <source media="(orientation: portrait)" srcSet={photoMobile} />
+                )}
                 <img src={photoDesktop} alt="" className="h-full w-full object-cover object-top" fetchPriority="high" />
               </picture>
             </div>
+            {layered && (
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 hidden portrait:block">
+                {/* full-width gopuram cutout that rises once the intro lifts; on short screens its marble floor tucks below the edge so the tower clears the names */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={templeMobile} alt="" className="temple-rise block h-auto w-full [@media(min-aspect-ratio:1/2)]:-mb-[16vw]" fetchPriority="high" />
+              </div>
+            )}
           </>
         ) : (
           <Toranam className="toranam-in absolute inset-x-0 top-0 h-[72px] w-full sm:h-[110px]" />

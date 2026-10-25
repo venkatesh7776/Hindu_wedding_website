@@ -24,7 +24,7 @@ npm run lint
 Times are written as local wall-clock time in `timeZone` (e.g. `"2027-02-20T10:30"` in
 `Asia/Kolkata`); guests anywhere get correct calendar entries.
 
-When real details are in, set **`isSample: false`** to remove the "Sample details" badge.
+When real details are in, set **`isSample: false`** so the config is marked as final.
 
 Photos go in `public/images/...` and are referenced as `/images/...`. Missing files fall back
 gracefully (portrait monogram, gallery placeholder, ceremony line-art).

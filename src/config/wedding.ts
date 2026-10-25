@@ -3,7 +3,7 @@
  *
  * Everything below is DUMMY content (names, venue, phone numbers and the
  * Unsplash photos in public/images/couple + gallery). Replace it with the couple's
- * real details, then set `isSample: false` to remove the "sample details" badge.
+ * real details, then set `isSample: false` (a reminder flag; nothing is shown on the page).
  *
  * Dates/times are written as local wall-clock time ("YYYY-MM-DDTHH:mm") in
  * `timeZone`; the site converts them correctly for every guest.

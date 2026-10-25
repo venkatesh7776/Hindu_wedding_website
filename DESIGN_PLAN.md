@@ -174,3 +174,4 @@ are live (originals kept in `artwork-originals/`, served as WebP — 24 MB → 2
   background music (veena & shehnai, CC BY — credited in the footer). Mute/unmute sits bottom-right.
 - Share button removed at the couple's request; the dock now holds only the music mute/unmute.
 - Tap anywhere throws a small burst of flower petals and turmeric akshantalu from the tap point (`TapBlessings.tsx`, off under reduced motion).
+- Mobile hero is two layers: the garlanded sky (`hero-sky-mobile`) shows from the start and the transparent gopuram cutout (`hero-temple-mobile`) rises from the bottom when the intro lifts (`.temple-rise`, gated on `html[data-revealed]`). It always spans the full width and sits behind the names (no parallax). Desktop keeps the single painted scene.

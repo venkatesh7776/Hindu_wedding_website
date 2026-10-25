@@ -36,11 +36,6 @@ export default function Invitation() {
         musicSrc={wedding.music.src}
         musicTitle={wedding.music.title}
       />
-      {wedding.isSample && (
-        <p className="fixed bottom-4 left-4 z-40 rounded-full border border-gold/40 bg-ivory/90 px-3 py-1.5 text-[11px] text-ink-muted shadow-sm backdrop-blur sm:bottom-6 sm:left-6">
-          Sample details · edit <code className="text-maroon">src/config/wedding.ts</code>
-        </p>
-      )}
     </>
   );
 }

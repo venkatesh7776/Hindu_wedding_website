@@ -385,6 +385,17 @@ body {
   }
 }
 
+/* Mobile hero: the gopuram layer rises from below the sky once the intro lifts */
+.temple-rise {
+  transform-origin: 50% 100%;
+  animation: temple-rise 1700ms var(--ease-silk) both;
+  animation-delay: 450ms;
+}
+@keyframes temple-rise {
+  from { transform: translateY(100%); }
+  to { transform: none; }
+}
+
 /* Intro cover: page is held on it until the CTA, then it is removed once lifted away */
 html[data-intro="open"] {
   overflow: hidden;
@@ -395,7 +406,7 @@ html[data-intro="done"] :is(#intro, #intro-spacer) {
 
 /* Hold the hero's entrance until the intro cover starts to lift (JS sets data-revealed) */
 @media (scripting: enabled) {
-  html:not([data-revealed]) #top :is(.hero-in, .draw-line) {
+  html:not([data-revealed]) #top :is(.hero-in, .draw-line, .temple-rise) {
     animation-play-state: paused;
   }
 }
