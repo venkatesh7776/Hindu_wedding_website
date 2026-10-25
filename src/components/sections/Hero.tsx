@@ -1,0 +1,88 @@
+import type { CSSProperties } from "react";
+import { wedding } from "@/config/wedding";
+import { generated } from "@/lib/assets";
+import { Gopuram } from "../art/Gopuram";
+import { Toranam } from "../art/Toranam";
+import { Parallax } from "../motion/Parallax";
+import { ScrollDim } from "../motion/ScrollDim";
+
+const delay = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
+
+/**
+ * Two treatments share the same content:
+ * - with painted artwork: a light, daylight scene with bold burgundy type set straight on the open sky
+ * - without: maroon dusk with the line-art gopuram rising beneath the names
+ */
+export function Hero() {
+  const photoDesktop = generated("hero-gopuram-desktop");
+  const photoMobile = generated("hero-gopuram-mobile");
+  const photo = Boolean(photoDesktop);
+
+  return (
+    <section
+      id="top"
+      className={`sticky top-0 isolate z-0 flex min-h-[100svh] flex-col overflow-x-clip ${photo ? "bg-ivory text-burgundy" : "bg-hero text-ivory"}`}
+    >
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        {photo ? (
+          <>
+            <div className="hero-photo-in absolute inset-0">
+              <picture className="block h-full w-full">
+                {photoMobile && <source media="(orientation: portrait)" srcSet={photoMobile} />}
+                <img src={photoDesktop} alt="" className="h-full w-full object-cover object-top" fetchPriority="high" />
+              </picture>
+            </div>
+          </>
+        ) : (
+          <Toranam className="toranam-in absolute inset-x-0 top-0 h-[72px] w-full sm:h-[110px]" />
+        )}
+      </div>
+
+      <Parallax
+        speed={-0.25}
+        fadeOver={0.6}
+        className={`relative mx-auto flex w-full max-w-4xl flex-col items-center px-[var(--gutter)] text-center ${
+          photo
+            ? "pt-[max(5.5rem,11svh)] md:landscape:mr-0 md:landscape:w-[60%] md:landscape:pt-[max(9rem,22svh)]"
+            : "pt-[max(6.5rem,15svh)] sm:pt-[max(8.5rem,16svh)]"
+        }`}
+      >
+        <p className={`hero-in t-deva text-base sm:text-lg ${photo ? "font-medium text-maroon" : "text-gold-muted"}`} style={delay(400)}>
+          {wedding.invocation}
+        </p>
+
+        <h1 className={`t-names mt-6 sm:mt-8 ${photo ? "font-medium [text-shadow:0_2px_20px_rgba(72,20,31,0.14)]" : ""}`}>
+          <span className="hero-in block text-balance" style={delay(600)}>
+            {wedding.bride.name}
+          </span>
+          <span className="hero-in my-1 flex items-center justify-center gap-4 sm:my-2" style={delay(760)}>
+            <svg aria-hidden viewBox="0 0 80 2" className="h-px w-10 sm:w-16">
+              <line x1="0" y1="1" x2="80" y2="1" stroke="currentColor" pathLength={1} className="draw-line text-gold" style={delay(900)} />
+            </svg>
+            <span className={`font-display italic leading-none ${photo ? "text-[#94702F]" : "text-gold"}`} style={{ fontSize: "max(0.62em, 2.5rem)" }}>
+              &amp;
+            </span>
+            <svg aria-hidden viewBox="0 0 80 2" className="h-px w-10 sm:w-16">
+              <line x1="80" y1="1" x2="0" y2="1" stroke="currentColor" pathLength={1} className="draw-line text-gold" style={delay(900)} />
+            </svg>
+          </span>
+          <span className="hero-in block text-balance" style={delay(880)}>
+            {wedding.groom.name}
+          </span>
+        </h1>
+
+
+      </Parallax>
+
+      {!photo && (
+        <div className="pointer-events-none relative mt-auto flex justify-center overflow-hidden pt-10">
+          <Parallax speed={0.1} max={50}>
+            <Gopuram className="hero-rise block h-[clamp(15rem,46svh,33rem)] w-auto max-w-none" />
+          </Parallax>
+        </div>
+      )}
+
+      <ScrollDim />
+    </section>
+  );
+}

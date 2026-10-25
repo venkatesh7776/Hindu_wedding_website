@@ -1,0 +1,401 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Theme — Royal Indian Heritage × Modern Luxury
+   Single source of truth for colour, type, spacing and motion.
+   ------------------------------------------------------------------ */
+
+:root {
+  /* Palette */
+  --maroon: #651e2b;
+  --burgundy: #48141f;
+  --ivory: #faf5ec;
+  --gold: #c5a15b;
+  --gold-muted: #dcc58e;
+  --temple-green: #354c3b;
+  --charcoal: #302723;
+  --rose: #e8d4cf;
+
+  /* Derived tints */
+  --ivory-deep: #f3ead9;
+  --blush: #f5e9e4;
+  --gold-line: color-mix(in oklab, var(--gold) 55%, transparent);
+  --gold-hair: color-mix(in oklab, var(--gold) 28%, transparent);
+  --ivory-soft: color-mix(in oklab, var(--ivory) 72%, transparent);
+
+  /* Semantic */
+  --surface-light: var(--ivory);
+  --surface-dark: var(--burgundy);
+  --ink: var(--charcoal);
+  --ink-heading: var(--maroon);
+  --ink-muted: color-mix(in oklab, var(--charcoal) 68%, var(--ivory));
+  --ink-on-dark: var(--ivory);
+  --ink-on-dark-muted: color-mix(in oklab, var(--ivory) 70%, var(--burgundy));
+  --accent: var(--gold);
+
+  /* Fluid type scale */
+  --fs-names: clamp(2.75rem, 1.6rem + 6.2vw, 6.25rem);
+  --fs-h2: clamp(2.125rem, 1.6rem + 2.4vw, 3.5rem);
+  --fs-h3: clamp(1.5rem, 1.3rem + 0.9vw, 2rem);
+  --fs-lead: clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem);
+  --fs-body: clamp(1rem, 0.97rem + 0.12vw, 1.0625rem);
+  --fs-label: 0.75rem;
+
+  /* Spacing */
+  --section-y: clamp(5rem, 3rem + 9vw, 10rem);
+  --gutter: clamp(1rem, 0.5rem + 2.5vw, 2.5rem);
+  --content-max: 70rem;
+  --measure: 60ch;
+
+  /* Motion */
+  --ease-silk: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-veil: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 300ms;
+  --dur-base: 600ms;
+  --dur-slow: 1100ms;
+}
+
+@theme inline {
+  --color-maroon: var(--maroon);
+  --color-burgundy: var(--burgundy);
+  --color-ivory: var(--ivory);
+  --color-ivory-deep: var(--ivory-deep);
+  --color-gold: var(--gold);
+  --color-gold-muted: var(--gold-muted);
+  --color-temple-green: var(--temple-green);
+  --color-charcoal: var(--charcoal);
+  --color-rose: var(--rose);
+  --color-blush: var(--blush);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+
+  --font-display: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-body), Inter, system-ui, sans-serif;
+  --font-deva: var(--font-devanagari), "Noto Serif Devanagari", serif;
+
+  --ease-silk: var(--ease-silk);
+  --ease-veil: var(--ease-veil);
+}
+
+/* ---------- Base ---------- */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--surface-light);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  overflow-x: clip;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--gold-muted);
+  color: var(--burgundy);
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@layer base {
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* Component classes live in the components layer so Tailwind utilities can override them */
+@layer components {
+  /* ---------- Typography primitives ---------- */
+
+  .t-names {
+    font-family: var(--font-display);
+    font-size: var(--fs-names);
+    font-weight: 400;
+    line-height: 0.98;
+    letter-spacing: -0.01em;
+  }
+
+  .t-h2 {
+    font-family: var(--font-display);
+    font-size: var(--fs-h2);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--ink-heading);
+  }
+
+  .t-h3 {
+    font-family: var(--font-display);
+    font-size: var(--fs-h3);
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--ink-heading);
+  }
+
+  .t-lead {
+    font-family: var(--font-display);
+    font-size: var(--fs-lead);
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .t-label {
+    font-family: var(--font-sans);
+    font-size: var(--fs-label);
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .t-deva {
+    font-family: var(--font-deva);
+    letter-spacing: 0.04em;
+  }
+
+  /* ---------- Layout primitives ---------- */
+
+  .section {
+    position: relative;
+    padding-block: var(--section-y);
+    padding-inline: var(--gutter);
+  }
+
+  .section--dark {
+    background: var(--surface-dark);
+    color: var(--ink-on-dark);
+  }
+
+  .section--dark .t-h2,
+  .section--dark .t-h3 {
+    color: var(--ink-on-dark);
+  }
+
+  .container-wide {
+    max-width: var(--content-max);
+    margin-inline: auto;
+  }
+
+  .measure {
+    max-width: var(--measure);
+  }
+
+  /* Thin gold rule with a centre diamond */
+  .gold-rule {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--gold);
+  }
+  .gold-rule::before,
+  .gold-rule::after {
+    content: "";
+    height: 1px;
+    flex: 1;
+    background: linear-gradient(to var(--dir, right), transparent, var(--gold-line));
+  }
+  .gold-rule::after {
+    --dir: left;
+  }
+
+  /* ---------- Buttons ---------- */
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 48px;
+    padding: 0.85rem 1.75rem;
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    border-radius: 2px;
+    transition:
+      background-color var(--dur-fast) var(--ease-silk),
+      color var(--dur-fast) var(--ease-silk),
+      border-color var(--dur-fast) var(--ease-silk),
+      transform var(--dur-fast) var(--ease-silk);
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+  .btn--gold {
+    background: var(--gold);
+    color: var(--burgundy);
+  }
+  .btn--gold:hover {
+    background: var(--gold-muted);
+  }
+  .btn--maroon {
+    background: var(--maroon);
+    color: var(--ivory);
+  }
+  .btn--maroon:hover {
+    background: var(--burgundy);
+  }
+  .btn--ghost {
+    border: 1px solid var(--gold-line);
+    color: inherit;
+  }
+  .btn--ghost:hover {
+    border-color: var(--gold);
+    background: color-mix(in oklab, var(--gold) 12%, transparent);
+  }
+}
+
+/* ---------- Motion primitives ---------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity var(--dur-base) var(--ease-silk),
+    transform var(--dur-base) var(--ease-silk);
+  transition-delay: var(--delay, 0ms);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-image {
+  clip-path: inset(8% 8% 8% 8%);
+  transition: clip-path var(--dur-slow) var(--ease-veil);
+  transition-delay: var(--delay, 0ms);
+}
+.reveal-image > * {
+  transform: scale(1.06);
+  transition: transform calc(var(--dur-slow) * 1.4) var(--ease-silk);
+  transition-delay: var(--delay, 0ms);
+}
+.reveal-image.is-visible {
+  clip-path: inset(0 0 0 0);
+}
+.reveal-image.is-visible > * {
+  transform: none;
+}
+
+/* Hero entrance — runs once on load */
+.hero-in {
+  animation: hero-in var(--dur-slow) var(--ease-silk) both;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes hero-in {
+  from { opacity: 0; transform: translateY(18px); filter: blur(6px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+.hero-rise {
+  animation: hero-rise 1400ms var(--ease-silk) both;
+  animation-delay: 150ms;
+}
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: none; }
+}
+.hero-photo-in {
+  animation: hero-photo-in 1800ms var(--ease-silk) both;
+}
+@keyframes hero-photo-in {
+  from { opacity: 0; transform: scale(1.04); }
+  to { opacity: 1; transform: none; }
+}
+.toranam-in {
+  transform-origin: 50% 0;
+  animation: toranam-in 900ms var(--ease-silk) both;
+  animation-delay: 300ms;
+}
+@keyframes toranam-in {
+  from { opacity: 0; transform: translateY(-24px) rotate(-1deg); }
+  to { opacity: 1; transform: none; }
+}
+.draw-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 900ms var(--ease-veil) forwards;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Countdown digit roll */
+.digit-in {
+  display: inline-block;
+  animation: digit-in 420ms var(--ease-silk) both;
+}
+@keyframes digit-in {
+  from { opacity: 0; transform: translateY(-35%); }
+  to { opacity: 1; transform: none; }
+}
+
+.fade-in {
+  animation: fade-in 400ms var(--ease-silk) both;
+}
+@keyframes fade-in {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+.scroll-cue {
+  animation: breathe 1.8s ease-in-out infinite;
+}
+
+/* Arch-topped frame for portraits and ceremony art */
+.arch {
+  border-radius: 999px 999px 4px 4px;
+  overflow: hidden;
+}
+
+.bg-hero {
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 92%, color-mix(in oklab, var(--gold) 22%, transparent), transparent 70%),
+    linear-gradient(180deg, var(--burgundy) 0%, #561925 55%, var(--maroon) 100%);
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.35; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(6px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal,
+  .reveal-image,
+  .reveal-image > * {
+    transform: none !important;
+    clip-path: none !important;
+    transition: opacity 200ms linear !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* Intro cover: page is held on it until the CTA, then it is removed once lifted away */
+html[data-intro="open"] {
+  overflow: hidden;
+}
+html[data-intro="done"] :is(#intro, #intro-spacer) {
+  display: none;
+}
+
+/* Hold the hero's entrance until the intro cover starts to lift (JS sets data-revealed) */
+@media (scripting: enabled) {
+  html:not([data-revealed]) #top :is(.hero-in, .draw-line) {
+    animation-play-state: paused;
+  }
+}
